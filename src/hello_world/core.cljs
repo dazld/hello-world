@@ -11,29 +11,30 @@
   (aset ctx "fillStyle" "black")
   (.fillRect ctx 0 0 (:width dims) (:height dims)))
 
+
+
+
 (defn draw []
   (setup)
   (let [w (:width dims)
         h (:height dims)
-        pts (shuffle (points w h))
-        [sx sy] (last pts)]
+        pts (partition 2 (shuffle (points w h 300 15)))]
 
     (aset ctx "fillStyle" "rgba(32,32,32,0.05)")
-    (aset ctx "lineWidth" 1)
-    (.beginPath ctx)
-    (.moveTo ctx sx sy)
 
-    (doseq [[x y] pts]
-      (let [rx (/ x w)
+
+    (doseq [[a b] pts]
+      (let [[x y] a
+            [x2 y2] b
+            rx (/ x w)
             ry (/ y h)]
-        (aset ctx "strokeStyle" (rgba [rx ry 1])))
-      (.lineTo ctx x y)
-      (.stroke ctx)
-      (.closePath ctx)
-      (.beginPath ctx)
-      (.moveTo ctx x y)))
+        (aset ctx "strokeStyle" (rgba [rx ry 1]))
+        (.beginPath ctx)
+        (.moveTo ctx x y)
+        (.lineTo ctx x2 y2)
+        (.stroke ctx)
+        (.closePath ctx)))))
 
-  (.closePath ctx))
 
 
 

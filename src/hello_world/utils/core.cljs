@@ -10,9 +10,9 @@
                    (map floor))]
     (str "rgba(" (join "," comps) ",0.4)")))
 
-(defn points [w h]
-  (let [iW (/ w 120)
-        iH (/ h 4)
+(defn points [w h npW npH]
+  (let [iW (/ w npW)
+        iH (/ h npH)
         osW (/ iW 2)
         osH (/ iH 2)]
     (for [x (range 0 w iW)
