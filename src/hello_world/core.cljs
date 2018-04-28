@@ -1,41 +1,32 @@
 (ns hello-world.core
-    (:require [hello-world.stage.core :refer [ctx dims]]))
+    (:require [hello-world.stage.core :refer [ctx dims]]
+              [hello-world.utils.core :refer [rgba points]]))
+
 
 (enable-console-print!)
 (defonce app-state (atom {:text "Hello world!"}))
 (println @app-state)
 
 (defn setup []
-  (.clearRect ctx 0 0 (:width dims) (:height dims)))
-
-
-(defn points [w h]
-  (let [iW (/ w 500)
-        iH (/ h 4)
-        osW (/ iW 2)
-        osH (/ iH 2)]
-    (for [x (range 0 w iW)
-          y (range 0 h iH)]
-      [(+ x osW)
-       (+ y osH)])))
-
-
+  (aset ctx "fillStyle" "black")
+  (.fillRect ctx 0 0 (:width dims) (:height dims)))
 
 (defn draw []
   (setup)
   (let [w (:width dims)
         h (:height dims)
         pts (shuffle (points w h))
-        [sx sy] (first pts)]
+        [sx sy] (last pts)]
 
     (aset ctx "fillStyle" "rgba(32,32,32,0.05)")
+    (aset ctx "lineWidth" 1)
     (.beginPath ctx)
     (.moveTo ctx sx sy)
 
     (doseq [[x y] pts]
       (let [rx (/ x w)
             ry (/ y h)]
-        (aset ctx "strokeStyle" (str "rgba(" (clojure.string/join "," [(* 255 rx) (* 255 ry) (* 255 ry)  0.4  ]) ")")))
+        (aset ctx "strokeStyle" (rgba [rx ry 1])))
       (.lineTo ctx x y)
       (.stroke ctx)
       (.closePath ctx)
@@ -43,6 +34,7 @@
       (.moveTo ctx x y)))
 
   (.closePath ctx))
+
 
 
 (draw)

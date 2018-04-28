@@ -4,9 +4,13 @@
 (defonce ctx (.getContext canvas "2d"))
 
 (def dims
-  {:width (aget js/window "innerWidth")
-   :height (aget js/window "innerHeight")
-   :dpr (aget js/window "devicePixelRatio")})
+  (let [dpr (aget js/window "devicePixelRatio")
+        w   (* dpr (aget js/window "innerWidth"))
+        h   (* dpr (aget js/window "innerHeight"))]
+
+    {:dpr    dpr
+     :width  w
+     :height h}))
 
 
 (.setAttribute canvas "width" (:width dims))
