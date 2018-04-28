@@ -2,7 +2,6 @@
     (:require [hello-world.stage.core :refer [ctx dims]]
               [hello-world.utils.core :refer [rgba points]]))
 
-
 (enable-console-print!)
 (defonce app-state (atom {:text "Hello world!"}))
 (println @app-state)
@@ -11,32 +10,26 @@
   (aset ctx "fillStyle" "black")
   (.fillRect ctx 0 0 (:width dims) (:height dims)))
 
-
-
-
 (defn draw []
   (setup)
   (let [w (:width dims)
         h (:height dims)
-        pts (partition 2 (shuffle (points w h 300 15)))]
+        pts (partition 3 (shuffle (points w h 12 5)))]
 
-    (aset ctx "fillStyle" "rgba(32,32,32,0.05)")
-
-
-    (doseq [[a b] pts]
+    (doseq [[a b c d] pts]
       (let [[x y] a
             [x2 y2] b
+            [x3 y3] c
             rx (/ x w)
             ry (/ y h)]
-        (aset ctx "strokeStyle" (rgba [rx ry 1]))
+        (aset ctx "fillStyle" (rgba [rx ry 0.01]))
         (.beginPath ctx)
         (.moveTo ctx x y)
         (.lineTo ctx x2 y2)
-        (.stroke ctx)
-        (.closePath ctx)))))
-
-
-
+        (.lineTo ctx x3 y3)
+        (.lineTo ctx x y)
+        (.closePath ctx)
+        (.fill ctx)))))
 
 (draw)
 
