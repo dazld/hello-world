@@ -11,7 +11,8 @@
                  [figwheel-sidecar "0.5.15"]]
                  
 
-  :plugins [[lein-cljsbuild "1.1.7" :exclusions [[org.clojure/clojure]]]]
+  :plugins [[lein-cljsbuild "1.1.7" :exclusions [[org.clojure/clojure]]]
+            [lein-cljfmt "0.5.7"]]
 
   :source-paths ["src" "script"]
 
