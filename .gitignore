@@ -12,3 +12,4 @@ pom.xml
 .repl
 .nrepl-port
 /hello-world.iml
+node_modules
