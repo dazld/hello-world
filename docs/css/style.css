@@ -1,0 +1,17 @@
+/* some style */
+@import url('https://flarework.com/normalize.css');
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+canvas {
+    height: 100%;
+    width: 100%;
+    background: radial-gradient(rgba(32,32,32,0.1) 66%, rgba(0,0,0,0.2));
+}
+
