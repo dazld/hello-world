@@ -8,7 +8,7 @@
   (let [comps (->> color
                    (map #(* 255 %))
                    (map floor))]
-    (str "rgba(" (join "," comps) ",0.4)")))
+    (str "rgba(" (join "," comps) ", 0.3)")))
 
 (defn points [w h npW npH]
   (let [iW (/ w npW)
