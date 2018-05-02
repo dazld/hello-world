@@ -6,7 +6,7 @@
   :min-lein-version "2.7.1"
 
   :dependencies [[org.clojure/clojure "1.9.0"]
-                 [org.clojure/clojurescript "1.9.946"]
+                 [org.clojure/clojurescript "1.10.238"]
                  [org.clojure/core.async  "0.4.474"]
                  [figwheel-sidecar "0.5.15"]]
                  
@@ -34,6 +34,8 @@
                            :output-to "resources/public/js/compiled/hello_world.js"
                            :output-dir "resources/public/js/compiled/out"
                            :source-map-timestamp true
+                           :install-deps true
+                           :npm-deps {"simplex-noise" "2.4.0"}
                            ;; To console.log CLJS data-structures make sure you enable devtools in Chrome
                            ;; https://github.com/binaryage/cljs-devtools
                            :preloads [devtools.preload]}}
@@ -45,6 +47,8 @@
                 :compiler {:output-to "resources/public/js/compiled/hello_world.js"
                            :main hello-world.core
                            :optimizations :advanced
+                           :install-deps true
+                           :npm-deps {"simplex-noise" "2.4.0"}
                            :pretty-print false}}]}
 
   :figwheel {;; :http-server-root "public" ;; default and assumes "resources"

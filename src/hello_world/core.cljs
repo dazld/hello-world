@@ -1,10 +1,12 @@
 (ns hello-world.core
   (:require [hello-world.stage.core :refer [ctx dims]]
-            [hello-world.utils.core :refer [rgba points]]))
+            [hello-world.utils.core :refer [rgba points]]
+            ["simplex-noise" :as simplex]))
+
 
 (enable-console-print!)
 (defonce app-state (atom {:text "Hello world!"}))
-(println @app-state)
+(def noise (new simplex))
 
 (defn setup []
   (aset ctx "fillStyle" "black")
