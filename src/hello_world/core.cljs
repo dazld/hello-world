@@ -1,6 +1,7 @@
 (ns hello-world.core
   (:require [hello-world.stage.core :refer [ctx dims]]
             [hello-world.utils.core :refer [rgba points]]
+            [goog.array :as garray]
             ["simplex-noise" :as simplex]))
 
 
@@ -8,14 +9,21 @@
 (defonce app-state (atom {:text "Hello world!"}))
 (def noise (new simplex))
 
+(defn noisy-shuffle [coll]
+  (let [a (to-array coll)
+        [x _] (last a)]
+    (garray/shuffle a #(Math/abs (.noise2D noise x (/ (.now js/Date) 400000))))
+    (vec a)))
+
 (defn setup []
   (aset ctx "fillStyle" "black")
   (.fillRect ctx 0 0 (:width dims) (:height dims)))
 
 (defn draw []
+  (setup)
   (let [w (:width dims)
         h (:height dims)
-        pts (partition 3 (shuffle (points w h 120 5)))]
+        pts (partition 3 (noisy-shuffle (points w h 120 5)))]
 
     (doseq [[a b c] pts]
       (let [[x y] a
@@ -30,7 +38,8 @@
         (.lineTo ctx x3 y3)
         (.lineTo ctx x y)
         (.closePath ctx)
-        (.stroke ctx)))))
+        (.stroke ctx))))
+  (.requestAnimationFrame js/window draw))
 
 (setup)
 (draw)
